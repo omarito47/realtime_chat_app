@@ -1,6 +1,9 @@
 import 'package:agora_uikit/agora_uikit.dart';
+import 'package:chat_app/modules/call/controller/call_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+
+
 
 class AgoraVideoChatWidget extends StatefulWidget {
   final String channelName;
@@ -17,27 +20,14 @@ class AgoraVideoChatWidget extends StatefulWidget {
 }
 
 class _AgoraVideoChatWidgetState extends State<AgoraVideoChatWidget> {
-  late final AgoraClient client;
+  late final CallController callController;
 
   @override
   void initState() {
     super.initState();
- 
-    initAgora();
+    callController = CallController();
+    callController.initAgora(widget.channelName, widget.userName);
   }
-
-  void initAgora() async {
-    String agoraApiKey = dotenv.env['AGORA_API_KEY']! ;
-    client = AgoraClient(
-      agoraConnectionData: AgoraConnectionData(
-        appId: agoraApiKey,
-        channelName: widget.channelName,
-        username: widget.userName,
-      ),
-    );
-    await client.initialize();
-  }
-
 
   @override
   Widget build(BuildContext context) {
@@ -46,13 +36,13 @@ class _AgoraVideoChatWidgetState extends State<AgoraVideoChatWidget> {
         child: Stack(
           children: [
             AgoraVideoViewer(
-              client: client,
+              client: callController.client,
               layoutType: Layout.oneToOne,
-              enableHostControls: true, // Add this to enable host controls
+              enableHostControls: true,
             ),
             AgoraVideoButtons(
-              client: client,
-              addScreenSharing: false, // Add this to enable screen sharing
+              client: callController.client,
+              addScreenSharing: false,
             ),
           ],
         ),

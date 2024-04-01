@@ -1,3 +1,4 @@
+import 'package:chat_app/modules/chat/controller/chat_controller.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -17,30 +18,13 @@ class _ChatPageState extends State<ChatPage> {
   // text controller
   final TextEditingController _messageController = TextEditingController();
 
-  // chat & auth services intances
-  final ChatService _chatService = ChatService();
-  final AuthService _authService = AuthService();
-  // extract name from the email
-  String extractUsernameFromEmail(String email) {
-    // Split the email address using the '@' symbol
-    List<String> parts = email.split('@');
-
-    // The username is the first part of the split result
-    String username = parts[0];
-
-    // Remove any non-alphanumeric characters from the username
-    username = username.replaceAll(RegExp(r'[^a-zA-Z0-9]'), '');
-
-    return username;
-  }
-
   // send message
   Future<void> sendMessage() async {
+    
     // if there is somthing inside the textfield
     if (_messageController.text.isNotEmpty) {
       // send message
-      await _chatService.sendMessage(
-          widget.receiverID, _messageController.text);
+      await ChatController().sendMessage(widget.receiverID, _messageController.text);
       // clear textfield
       scrollDown();
       _messageController.clear();
@@ -49,8 +33,7 @@ class _ChatPageState extends State<ChatPage> {
 
   // send emojie as a message
   Future<void> sendEmojie() async {
-    // send message
-    await _chatService.sendMessage(widget.receiverID, "👍");
+    ChatController().sendEmoji(widget.receiverID);
     // clear textfield
     scrollDown();
   }
@@ -100,7 +83,8 @@ class _ChatPageState extends State<ChatPage> {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.tertiary,
       appBar: AppBar(
-        title: Text(extractUsernameFromEmail(widget.receiverEmail)),
+        title: Text(
+            ChatController().extractUsernameFromEmail(widget.receiverEmail)),
         backgroundColor: Colors.transparent,
         foregroundColor: Colors.grey,
         elevation: 0,
@@ -119,8 +103,9 @@ class _ChatPageState extends State<ChatPage> {
                       context,
                       MaterialPageRoute(
                         builder: (context) => AgoraVideoChatWidget(
-                            channelName:
-                                _chatService.getChannelId(widget.receiverID),
+                            channelName: ChatController()
+                                .chatService
+                                .getChannelId(widget.receiverID),
                             userName: widget.receiverEmail),
                       ));
                 },
@@ -142,9 +127,10 @@ class _ChatPageState extends State<ChatPage> {
   }
 
   Widget _buildMessageList() {
-    String senderID = _authService.getCurrentUser()!.uid;
+    String senderID = ChatController().authService.getCurrentUser()!.uid;
     return StreamBuilder(
-      stream: _chatService.getMessage(widget.receiverID, senderID),
+      stream:
+          ChatController().chatService.getMessage(widget.receiverID, senderID),
       builder: (context, snapshot) {
         // error
         if (snapshot.hasError) {
@@ -177,7 +163,8 @@ class _ChatPageState extends State<ChatPage> {
   Widget _buildMessageItem(QueryDocumentSnapshot<Object?> doc) {
     Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
     // is currrent user
-    bool isCurrentUser = data["senderID"] == _authService.getCurrentUser()!.uid;
+    bool isCurrentUser =
+        data["senderID"] == ChatController().authService.getCurrentUser()!.uid;
 
     var alignment =
         isCurrentUser ? Alignment.centerRight : Alignment.centerLeft;
