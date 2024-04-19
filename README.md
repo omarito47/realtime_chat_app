@@ -1,13 +1,5 @@
 ## Chat App
 This is a chat application that allows users to send and receive text messages in real-time. It also includes features such as displaying  message timestamps. Additionally, it supports video calls using the Agora API, and all messages are stored in Firestore.
-- Demo for the chat app
-
-
-
-https://github.com/omarito47/realtime_chat_app/assets/73294872/52835b6d-4d65-40bb-8c4a-bdfbeaddd68e
-
-
-
 
 
 
