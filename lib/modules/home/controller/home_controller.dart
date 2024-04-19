@@ -26,19 +26,21 @@ class HomeController {
 
   Widget buildUserList() {
     return StreamBuilder(
+      
       stream: _chatService.getUsersStream(),
       builder: (context, snapshot) {
-        // error
+     
         if (snapshot.hasError) {
-          return const Text("Error");
+          return  Text(ConstantHelper.errorText);
         }
-        // loading...
+     
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(child: CircularProgressIndicator());
         }
 
-        // return a list of users
+        
         return ListView(
+          
           children: snapshot.data!
               .map<Widget>((userData) => _buildUserListItem(userData, context))
               .toList(),
@@ -70,7 +72,7 @@ class HomeController {
               text: extractUsernameFromEmail(userData["email"]),
             );
           } else if (snapshot.hasError) {
-            return Text("Error");
+            return Text(ConstantHelper.errorText);
           } else {
             final imgUrl = snapshot.data;
             return UserTile(

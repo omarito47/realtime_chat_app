@@ -14,9 +14,9 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _pwControlller = TextEditingController();
   void login(BuildContext context) async {
-    //auth service
+
     final authService = AuthService();
-    // try login
+   
     try {
       await authService.signInWithEmailAndPassword(
           _emailController.text, _pwControlller.text);
@@ -41,26 +41,26 @@ class _LoginPageState extends State<LoginPage> {
             // logo
             Icon(
               Icons.message,
-              size: ConstantHelper.sizex60,
+              size: ConstantHelper.sizex20*3,
               color: Theme.of(context).colorScheme.primary,
             ),
              SizedBox(
-              height: ConstantHelper.sizex30,
+              height: ConstantHelper.sizex20+ConstantHelper.sizex10,
             ),
 
-            // welcome back message
+            
             Text(
               'Welcome Back, you\'ve been missed',
               style: TextStyle(
                 color: Theme.of(context).colorScheme.primary,
                 fontSize: ConstantHelper.sizex14,
-                // fontWeight: FontWeight.bold,
+              
               ),
             ),
              SizedBox(
               height: ConstantHelper.sizex20,
             ),
-            // email textFiled
+    
             CustomTextFiled(
               hintText: "Email",
               obsucureText: false,
@@ -69,7 +69,7 @@ class _LoginPageState extends State<LoginPage> {
              SizedBox(
               height: ConstantHelper.sizex10,
             ),
-            // password textFiled
+          
             CustomTextFiled(
               hintText: "Password",
               obsucureText: true,
@@ -78,12 +78,11 @@ class _LoginPageState extends State<LoginPage> {
              SizedBox(
               height: ConstantHelper.sizex25,
             ),
-            // login button
+           
             CustomButton(onTap: () =>login(context) , text: "Login"),
              SizedBox(
               height: ConstantHelper.sizex25,
             ),
-            // register now
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [

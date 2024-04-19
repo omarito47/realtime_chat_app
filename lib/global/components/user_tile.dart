@@ -41,13 +41,13 @@ class _UserTileState extends State<UserTile> {
         ),
         child: Row(
           children: [
-            // Leading widget
+            
             Padding(
               padding: EdgeInsets.all(ConstantHelper.sizex08),
               child: Stack(
                 children: [
                   CircleAvatar(
-                    radius: 20,
+                    radius: ConstantHelper.sizex20,
                     backgroundColor: Colors.grey[300],
                   ),
                   if (widget.imageUrl != null)
@@ -57,8 +57,8 @@ class _UserTileState extends State<UserTile> {
                           placeholder: 'assets/placeholder_image.jpg',
                           image: widget.imageUrl!,
                           fit: BoxFit.cover,
-                          width: 40,
-                          height: 40,
+                          width: ConstantHelper.sizex20*2,
+                          height: ConstantHelper.sizex20*2,
                           imageErrorBuilder: (context, error, stackTrace) {
                             return Icon(
                               Icons.person,

@@ -1,3 +1,4 @@
+import 'package:chat_app/global/utils/constant_helper.dart';
 import 'package:flutter/material.dart';
 
 class SettingsPage extends StatelessWidget {
@@ -11,9 +12,9 @@ class SettingsPage extends StatelessWidget {
           foregroundColor: Colors.grey,
           elevation: 0,
           centerTitle: true,
-          title: Text("Settings"),
+          title: Text(ConstantHelper.settings),
           leading: IconButton(
-              icon: Icon(Icons.arrow_back_ios_new_outlined),
+              icon:const Icon(Icons.arrow_back_ios_new_outlined),
               onPressed: () {
                 Navigator.pop(context);
               })),

@@ -15,17 +15,13 @@ class ChatPage extends StatefulWidget {
 }
 
 class _ChatPageState extends State<ChatPage> {
-  // text controller
+  
   final TextEditingController _messageController = TextEditingController();
 
-  // send message
   Future<void> sendMessage() async {
     
-    // if there is somthing inside the textfield
     if (_messageController.text.isNotEmpty) {
-      // send message
       await ChatController().sendMessage(widget.receiverID, _messageController.text);
-      // clear textfield
       scrollDown();
       _messageController.clear();
     }
@@ -34,11 +30,9 @@ class _ChatPageState extends State<ChatPage> {
   // send emojie as a message
   Future<void> sendEmojie() async {
     ChatController().sendEmoji(widget.receiverID);
-    // clear textfield
     scrollDown();
   }
 
-  // for textfield focus
   FocusNode focusNode = FocusNode();
 
   @override
@@ -53,7 +47,6 @@ class _ChatPageState extends State<ChatPage> {
         );
       }
     });
-    // wait a bit for listbiew to be built, then scroll to the bottom
     Future.delayed(
       const Duration(milliseconds: 500),
       () => scrollDown(),
@@ -68,7 +61,6 @@ class _ChatPageState extends State<ChatPage> {
     super.dispose();
   }
 
-  // scroll controller
   final ScrollController _scrollController = ScrollController();
   void scrollDown() {
     _scrollController.animateTo(
@@ -115,11 +107,9 @@ class _ChatPageState extends State<ChatPage> {
       ),
       body: Column(
         children: [
-          // display all messages
           Expanded(
             child: _buildMessageList(),
           ),
-          // user input
           _buildUserInput()
         ],
       ),
@@ -132,19 +122,18 @@ class _ChatPageState extends State<ChatPage> {
       stream:
           ChatController().chatService.getMessage(widget.receiverID, senderID),
       builder: (context, snapshot) {
-        // error
         if (snapshot.hasError) {
           return Center(
             child: Text(snapshot.error.toString()),
           );
         }
-        // loading...
+      
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(
             child: Text("Loading ..."),
           );
         }
-        // return list view
+  
         return ListView(
           controller: _scrollController,
           children: snapshot.data!.docs.map((doc) {
@@ -173,7 +162,7 @@ class _ChatPageState extends State<ChatPage> {
     DateTime timestamp = DateTime.fromMillisecondsSinceEpoch(
       data["timestamp"].seconds * 1000,
     );
-// Convert the timestamp to DateTime
+    // Convert the timestamp to DateTime
     timestamp = DateTime.fromMillisecondsSinceEpoch(
       data["timestamp"].seconds * 1000,
     );
@@ -197,8 +186,8 @@ class _ChatPageState extends State<ChatPage> {
               formattedTimestamp,
               style: TextStyle(
                 fontSize:
-                    ConstantHelper.sizex12, // Adjust the font size as needed
-                color: Colors.grey, // Adjust the color as needed
+                    ConstantHelper.sizex12, 
+                color: Colors.grey, 
               ),
             ),
           ),
@@ -211,13 +200,11 @@ class _ChatPageState extends State<ChatPage> {
     );
   }
 
-  // build message input
   Widget _buildUserInput() {
     return Padding(
-      padding: EdgeInsets.only(bottom: ConstantHelper.sizex30),
+      padding: EdgeInsets.only(bottom: ConstantHelper.sizex20+ConstantHelper.sizex10),
       child: Row(
         children: [
-          // texfield should take up  most of the space
           Expanded(
             child: CustomTextFiled(
               hintText: 'Type a message',
@@ -226,7 +213,6 @@ class _ChatPageState extends State<ChatPage> {
               focusNode: focusNode,
             ),
           ),
-          // send message button
           Container(
             decoration: const BoxDecoration(
                 color: Colors.green, shape: BoxShape.circle),
@@ -236,7 +222,7 @@ class _ChatPageState extends State<ChatPage> {
               onPressed: sendMessage,
             ),
           ),
-          // send emojie button
+        
           Container(
             decoration: const BoxDecoration(
                 color: Colors.green, shape: BoxShape.circle),

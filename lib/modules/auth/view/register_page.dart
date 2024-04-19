@@ -51,29 +51,29 @@ class RregisterStatePage extends State<RegisterPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            // logo
+           
             Icon(
               Icons.message,
-              size: ConstantHelper.sizex60,
+              size: ConstantHelper.sizex20*3,
               color: Theme.of(context).colorScheme.primary,
             ),
              SizedBox(
-              height: ConstantHelper.sizex30,
+              height: ConstantHelper.sizex20+ConstantHelper.sizex10,
             ),
 
-            // welcome back message
+          
             Text(
               'Let\'s create an account for you',
               style: TextStyle(
                 color: Theme.of(context).colorScheme.primary,
                 fontSize: ConstantHelper.sizex14,
-                // fontWeight: FontWeight.bold,
+             
               ),
             ),
              SizedBox(
               height: ConstantHelper.sizex20,
             ),
-            // email textFiled
+        
             CustomTextFiled(
               hintText: "Email",
               obsucureText: false,
@@ -82,7 +82,7 @@ class RregisterStatePage extends State<RegisterPage> {
              SizedBox(
               height: ConstantHelper.sizex10,
             ),
-            // password textFiled
+    
             CustomTextFiled(
               hintText: "Password",
               obsucureText: true,
@@ -91,7 +91,7 @@ class RregisterStatePage extends State<RegisterPage> {
              SizedBox(
               height: ConstantHelper.sizex10,
             ),
-            // confirm password textfiled
+           
             CustomTextFiled(
               hintText: "Confirm password",
               obsucureText: true,
@@ -100,12 +100,12 @@ class RregisterStatePage extends State<RegisterPage> {
              SizedBox(
               height: ConstantHelper.sizex25,
             ),
-            // register button
+           
             CustomButton(onTap: () => register(context), text: "Register"),
              SizedBox(
               height: ConstantHelper.sizex25,
             ),
-            // register now
+          
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [

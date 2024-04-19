@@ -1,5 +1,5 @@
 import 'package:chat_app/global/services/firebase/firebase_service.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+
 import 'package:flutter/material.dart';
 import 'package:chat_app/global/utils/global.dart';
 
@@ -29,7 +29,7 @@ class _MyDrawerState extends State<MyDrawer> {
       });
 
       final userEmail =
-          _authService.getCurrentUser()!.email; // Replace with the user's email
+          _authService.getCurrentUser()!.email; 
       final imageUrl =
           await _firebaseService.uploadImageToFirebase(_imageFile!, userEmail!);
 
@@ -44,12 +44,12 @@ class _MyDrawerState extends State<MyDrawer> {
   void logout() {
     final _auth = AuthService();
     _auth.signOut();
-  } // Rest of the code...
+  } 
 
   @override
   void initState() {
     super.initState();
-    _loadImageUrl(); // Load the image URL when the drawer initializes
+    _loadImageUrl(); 
   }
 
   Future<void> _loadImageUrl() async {
@@ -96,36 +96,36 @@ class _MyDrawerState extends State<MyDrawer> {
                       child: _imageUrl != null
                           ? CircleAvatar(
                               backgroundImage: NetworkImage(_imageUrl!),
-                              radius: 40,
+                              radius: ConstantHelper.sizex20*2,
                             )
                           : GestureDetector(
                               onTap: _uploadImage,
                               child: CircleAvatar(
                                 backgroundColor: Colors.grey[300],
-                                radius: 40,
+                                radius: ConstantHelper.sizex20*2,
                                 child: Icon(
                                   Icons.camera_alt,
                                   color: Theme.of(context).colorScheme.primary,
-                                  size: ConstantHelper.sizex40,
+                                  size: ConstantHelper.sizex20*2,
                                 ),
                               ),
                             ),
                     ),
                     SizedBox(
                         height:
-                            8), // Add spacing between the CircleAvatar and Text
+                            ConstantHelper.sizex08), 
                     Text(
                       userName ?? '',
                       style: TextStyle(
                         color: Theme.of(context).colorScheme.onBackground,
-                        fontSize: 16,
+                        fontSize: ConstantHelper.sizex16,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                   ],
                 ),
               ),
-              // home list tile
+              
               Padding(
                 padding: EdgeInsets.only(left: ConstantHelper.sizex25),
                 child: ListTile(
@@ -143,7 +143,7 @@ class _MyDrawerState extends State<MyDrawer> {
                   },
                 ),
               ),
-              // settings list tile
+              
               Padding(
                 padding: EdgeInsets.only(left: ConstantHelper.sizex25),
                 child: ListTile(
@@ -167,7 +167,7 @@ class _MyDrawerState extends State<MyDrawer> {
               ),
             ],
           ),
-          // logout list tile
+          
           Padding(
             padding: EdgeInsets.only(
                 left: ConstantHelper.sizex25, bottom: ConstantHelper.sizex25),

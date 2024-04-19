@@ -2,7 +2,6 @@ import 'package:chat_app/modules/home/controller/home_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:chat_app/global/utils/global.dart';
 
-
 class HomePage extends StatefulWidget {
   HomePage({Key? key}) : super(key: key);
 
@@ -18,11 +17,11 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.tertiary,
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        foregroundColor: Colors.grey,
+        //backgroundColor: Colors.red,
+        // foregroundColor: Colors.grey,
         elevation: 0,
         centerTitle: true,
-        title: const Text("Home"),
+        title: Text(ConstantHelper.homeText),
       ),
       body: _homeController.buildUserList(),
       drawer: const MyDrawer(),
